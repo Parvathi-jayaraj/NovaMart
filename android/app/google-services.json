@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "16318700827",
+    "project_id": "novamart-8be0a",
+    "storage_bucket": "novamart-8be0a.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:16318700827:android:088acea8c6964fb56d87be",
+        "android_client_info": {
+          "package_name": "com.example.novamart"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAg18cB8rSasapbms0lYC80EfBXYmLXfhg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
