@@ -58,7 +58,7 @@ import '../orders/screens/buyer_orders_screen.dart';
 import '../../models/product_model.dart';
 import '../../services/auth_service.dart';
 import '../products/product_detail_screen.dart';
-
+import '../chat/chat_list_screen.dart';
 
 class BuyerHomeScreen extends StatelessWidget {
   const BuyerHomeScreen({super.key});
@@ -74,6 +74,22 @@ class BuyerHomeScreen extends StatelessWidget {
 
 
         actions: [
+
+//chat
+ IconButton(
+    icon: const Icon(Icons.chat),
+
+    onPressed: () {
+      Navigator.push(
+        context,
+
+        MaterialPageRoute(
+          builder: (_) => ChatListScreen(),
+        ),
+      );
+    },
+  ),
+
 
           //cart logo
           IconButton(

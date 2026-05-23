@@ -2,6 +2,8 @@ import '../../services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'add_product_screen.dart';
 import '../orders/screens/seller_orders_screen.dart';
+import '../chat/chat_list_screen.dart';
+
 
 class SellerDashboardScreen extends StatelessWidget {
   const SellerDashboardScreen({super.key});
@@ -15,6 +17,21 @@ class SellerDashboardScreen extends StatelessWidget {
         foregroundColor: Colors.white,
 
          actions: [
+
+          //chat
+           IconButton(
+    icon: const Icon(Icons.chat),
+
+    onPressed: () {
+      Navigator.push(
+        context,
+
+        MaterialPageRoute(
+          builder: (_) => ChatListScreen(),
+        ),
+      );
+    },
+  ),
 //orders
 IconButton(
   onPressed: () {

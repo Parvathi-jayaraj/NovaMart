@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../services/order_service.dart';
 import '../../models/product_model.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import '../chat/chat_screen.dart';
+
 
 class ProductDetailScreen extends StatelessWidget {
 
@@ -139,7 +142,25 @@ class ProductDetailScreen extends StatelessWidget {
 
                           onPressed: () {
 
-                          },
+  final currentUser =
+      FirebaseAuth.instance.currentUser;
+
+  Navigator.push(
+    context,
+
+    MaterialPageRoute(
+      builder: (_) => ChatScreen(
+        buyerId: currentUser!.uid,
+
+        sellerId: product.sellerId,
+
+        productId: product.id,
+
+        otherUserName: product.sellerName,
+      ),
+    ),
+  );
+},
 
                           child: const Text(
                             "Chat Seller",
