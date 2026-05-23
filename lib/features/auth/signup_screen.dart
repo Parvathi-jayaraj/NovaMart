@@ -42,72 +42,6 @@ class _SignupScreenState extends State<SignupScreen> {
     super.dispose();
   }
 
-  // Runs when user taps the Sign Up button
-  /*void _handleSignup() {
-    if (_formKey.currentState!.validate()) {
-      // TODO: Add Firebase signup logic here later
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Account created as ${_selectedRole.toUpperCase()}! (UI only)',
-          ),
-          backgroundColor: const Color(0xFF10B981),
-        ),
-      );
-    }
-  }*/
-
-//   void _handleSignup() async {
-//   if (_formKey.currentState!.validate()) {
-//     setState(() {
-//       _isLoading = true;
-//     });
-
-//     try {
-//       final result = await AuthService().signUp(
-//   name: _nameController.text.trim(),
-//   email: _emailController.text.trim(),
-//   password: _passwordController.text.trim(),
-//   role: _selectedRole,
-// );
-
-
-//       setState(() {
-//         _isLoading = false;
-//       });
-
-//       if (result == null) {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text(
-//               'Account created successfully as ${_selectedRole.toUpperCase()}',
-//             ),
-//             backgroundColor: const Color(0xFF10B981),
-//           ),
-//         );
-
-//         Navigator.pushReplacementNamed(context, '/home');
-//       } else {
-//         ScaffoldMessenger.of(context).showSnackBar(
-//           SnackBar(
-//             content: Text(result),
-//             backgroundColor: Colors.red,
-//           ),
-//         );
-//       }
-//     } catch (e) {
-//       setState(() {
-//         _isLoading = false;
-//       });
-
-//       ScaffoldMessenger.of(context).showSnackBar(
-//         SnackBar(
-//           content: Text('Error: $e'),
-//           backgroundColor: Colors.red,
-//         ),
-//       );
-//     }
-//   }
 
  void _handleSignup() async {
   if (!_formKey.currentState!.validate()) return;
@@ -154,11 +88,6 @@ class _SignupScreenState extends State<SignupScreen> {
     );
     }
   }
-//}
-
-
-
-
 
   @override
   Widget build(BuildContext context) {

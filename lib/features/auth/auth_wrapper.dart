@@ -75,7 +75,7 @@ class AuthWrapper extends StatelessWidget {
 
             } else if (role == 'seller') {
 
-              return const SellerDashboardScreen();
+              return  SellerDashboardScreen();
             }
 
             // Invalid role fallback

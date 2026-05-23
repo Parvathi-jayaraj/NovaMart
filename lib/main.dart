@@ -32,7 +32,7 @@ class NovaMartApp extends StatelessWidget {
     '/signup': (context) => const SignupScreen(),
     '/buyer-home': (context) => const BuyerHomeScreen(),
     '/seller-dashboard': (context) =>
-        const SellerDashboardScreen(),
+         SellerDashboardScreen(),
   },
     );
   }

@@ -55,13 +55,6 @@ class ChatService {
         .collection('messages')
         .add(newMessage.toMap());
 
-    // Update Chat Room Info
-    // await _firestore.collection('chats').doc(chatId).set({
-    //   'participants': [buyerId, sellerId],
-    //   'productId': productId,
-    //   'lastMessage': message,
-    //   'lastMessageTime': Timestamp.now(),
-    // });
 
     await _firestore.collection('chats').doc(chatId).set({
   'participants': [buyerId, sellerId],

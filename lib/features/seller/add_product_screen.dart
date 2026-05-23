@@ -119,26 +119,6 @@ if (currentUser == null) {
   }
 }
 
-// Future<void> uploadProduct() async {
-
-//   if (selectedImage == null) {
-//     print("No image selected");
-//     return;
-//   }
-
-//   final cloudinaryService = CloudinaryService();
-
-//   final imageUrl =
-//       await cloudinaryService.uploadImage(selectedImage!,
-//       );
-
-//   if (imageUrl == null) {
-//     print("Image upload failed");
-//     return;
-//   }
-
-//   print("Uploaded Image URL: $imageUrl");
-// }
 
   @override
   Widget build(BuildContext context) {
