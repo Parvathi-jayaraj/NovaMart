@@ -1,60 +1,53 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-class OrderModel {
-  final String orderId;
+
+class CartModel {
+  final String cartId;
   final String buyerId;
-  final String sellerId;
   final String productId;
+  final String sellerId;
   final String productName;
   final String productImage;
-  final double price;
+  final double productPrice;
   final int quantity;
-  final double totalAmount;
-  final String status;
-  final DateTime createdAt;
+  final Timestamp createdAt;
 
-  OrderModel({
-    required this.orderId,
+  CartModel({
+    required this.cartId,
     required this.buyerId,
-    required this.sellerId,
     required this.productId,
+    required this.sellerId,
     required this.productName,
     required this.productImage,
-    required this.price,
+    required this.productPrice,
     required this.quantity,
-    required this.totalAmount,
-    required this.status,
     required this.createdAt,
   });
 
   Map<String, dynamic> toMap() {
     return {
+      'cartId': cartId,
       'buyerId': buyerId,
-      'sellerId': sellerId,
       'productId': productId,
+      'sellerId': sellerId,
       'productName': productName,
       'productImage': productImage,
-      'price': price,
+      'productPrice': productPrice,
       'quantity': quantity,
-      'totalAmount': totalAmount,
-      'status': status,
       'createdAt': createdAt,
     };
   }
 
-  factory OrderModel.fromMap(String id, Map<String, dynamic> map) {
-    return OrderModel(
-      orderId: id,
+  factory CartModel.fromMap(Map<String, dynamic> map) {
+    return CartModel(
+      cartId: map['cartId'] ?? '',
       buyerId: map['buyerId'] ?? '',
-      sellerId: map['sellerId'] ?? '',
       productId: map['productId'] ?? '',
+      sellerId: map['sellerId'] ?? '',
       productName: map['productName'] ?? '',
       productImage: map['productImage'] ?? '',
-      price: (map['price'] ?? 0).toDouble(),
+      productPrice: (map['productPrice'] ?? 0).toDouble(),
       quantity: map['quantity'] ?? 1,
-      totalAmount: (map['totalAmount'] ?? 0).toDouble(),
-      status: map['status'] ?? 'pending',
-      createdAt: (map['createdAt'] as Timestamp).toDate(),
+      createdAt: map['createdAt'] ?? Timestamp.now(),
     );
   }
 }

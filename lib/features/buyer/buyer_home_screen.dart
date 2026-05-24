@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-
+import '../cart/cart_screen.dart';
 import '../orders/screens/buyer_orders_screen.dart';
 import '../../models/product_model.dart';
 import '../../services/auth_service.dart';
@@ -22,6 +22,20 @@ class BuyerHomeScreen extends StatelessWidget {
         foregroundColor: Colors.white,
 
         actions: [
+
+//cart icon
+ IconButton(
+    icon: const Icon(Icons.shopping_cart),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (_) => CartScreen(),
+        ),
+      );
+    },
+  ),
+
 
           // Orders icon
           IconButton(
