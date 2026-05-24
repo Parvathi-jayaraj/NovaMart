@@ -8,7 +8,11 @@ class ChatListScreen extends StatelessWidget {
   ChatListScreen({super.key});
 
   final User? currentUser = FirebaseAuth.instance.currentUser;
-
+final currentUserId =
+    FirebaseAuth
+        .instance
+        .currentUser!
+        .uid;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,20 +57,28 @@ class ChatListScreen extends StatelessWidget {
               Map<String, dynamic> data =
                   chat.data() as Map<String, dynamic>;
 
-              List participants =
-                  data['participants'];
+              // List participants =
+              //     data['participants'];
 
-              String otherUserId =
-                  participants.firstWhere(
-                (id) => id != currentUser!.uid,
-              );
+              // String otherUserId =
+              //     participants.firstWhere(
+              //   (id) => id != currentUser!.uid,
+              // );
 
               return ListTile(
                 leading: const CircleAvatar(
                   child: Icon(Icons.person),
                 ),
 
-                title: Text(otherUserId),
+                //title: Text(otherUserId),
+                title: Text(
+
+  currentUserId == chat['buyerId']
+
+      ? chat['sellerName']
+
+      : chat['buyerName'],
+),
 
                 subtitle:
                     Text(data['lastMessage'] ?? ''),
@@ -78,13 +90,7 @@ class ChatListScreen extends StatelessWidget {
 
                 onTap: () {
 
-                  // String chatId = chat.id;
-
-                  // List<String> parts =
-                  //     chatId.split('_');
-
-                  // String buyerId = parts[0];
-                  // String sellerId = parts[1];
+                  
 
                   String buyerId = data['buyerId'];
 String sellerId = data['sellerId'];
@@ -94,12 +100,18 @@ String sellerId = data['sellerId'];
 
                     MaterialPageRoute(
                       builder: (_) => ChatScreen(
+                        receiverName:
+
+    currentUserId == data['buyerId']
+
+        ? data['sellerName']
+
+        : data['buyerName'],
                         buyerId: buyerId,
                         sellerId: sellerId,
                         productId: data['productId'],
 
-                        otherUserName:
-                            otherUserId,
+                        
                       ),
                     ),
                   );

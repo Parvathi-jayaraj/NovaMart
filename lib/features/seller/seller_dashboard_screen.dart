@@ -1,106 +1,5 @@
-// import '../../services/auth_service.dart';
-// import 'package:flutter/material.dart';
-// import 'add_product_screen.dart';
-// import '../orders/screens/seller_orders_screen.dart';
-// import '../chat/chat_list_screen.dart';
-// import 'seller_profile_screen.dart';
-
-// class SellerDashboardScreen extends StatelessWidget {
-//   const SellerDashboardScreen({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Seller Dashboard'),
-//         backgroundColor: Colors.green,
-//         foregroundColor: Colors.white,
-
-//          actions: [
-
-
-
-// //orders
-// IconButton(
-//   onPressed: () {
-
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (_) =>
-//             const SellerOrdersScreen(),
-//       ),
-//     );
-
-//   },
-
-//   icon: const Icon(Icons.receipt_long),
-// ),
-
-//     // Profile
-//     IconButton(
-//       icon: const Icon(Icons.person),
-//       onPressed: () {
-//         Navigator.push(
-//           context,
-//           MaterialPageRoute(
-//             builder: (_) => const SellerProfileScreen(),
-//           ),
-//         );
-//       },
-//     ),
-
-
-//   ],
-//       ),
-
-// floatingActionButton: FloatingActionButton(
-//   onPressed: () {
-//     Navigator.push(
-//       context,
-//       MaterialPageRoute(
-//         builder: (_) =>  ChatListScreen(),
-//       ),
-//     );
-//   },
-//   backgroundColor: Colors.blue,
-//   child: const Icon(Icons.chat),
-// ),
-
-      
-//       body: Center(
-//   child: Column(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: [
-
-//       const Text(
-//         'Seller Dashboard',
-//         style: TextStyle(
-//           fontSize: 22,
-//           fontWeight: FontWeight.bold,
-//         ),
-//       ),
-
-//       const SizedBox(height: 30),
-
-//       ElevatedButton(
-//         onPressed: () {
-//           Navigator.push(
-//             context,
-//             MaterialPageRoute(
-//               builder: (_) => const AddProductScreen(),
-//             ),
-//           );
-//         },
-//         child: const Text("Go To Add Product"),
-//       ),
-//     ],
-//   ),
-// ),
-//     );
-//   }
-// }
-
+import 'package:novamart/features/seller/my_products_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:novamart/features/orders/screens/seller_orders_screen.dart';
 import 'package:novamart/features/chat/chat_list_screen.dart';
@@ -112,13 +11,7 @@ import 'package:novamart/services/seller_dashboard_service.dart';
 class SellerDashboardScreen extends StatelessWidget {
    SellerDashboardScreen({super.key});
 
-  // =====================
-  // DUMMY DASHBOARD DATA
-  // =====================
-  // final int totalProducts = 12;
-  // final int pendingOrders = 3;
-  // final int completedOrders = 25;
-  // final double earnings = 12450;
+  
 
   final service = SellerDashboardService();
 final sellerId = FirebaseAuth.instance.currentUser!.uid;
@@ -144,17 +37,7 @@ final sellerId = FirebaseAuth.instance.currentUser!.uid;
     },
   ),
 
-  // IconButton(
-  //   icon: const Icon(Icons.receipt_long),
-  //   onPressed: () {
-  //     Navigator.push(
-  //       context,
-  //       MaterialPageRoute(
-  //         builder: (_) => const SellerOrdersScreen(),
-  //       ),
-  //     );
-  //   },
-  // ),
+  
 ],
       ),
 
@@ -181,52 +64,86 @@ const Text(
 
 const SizedBox(height: 12),
 
-FutureBuilder(
-  future: Future.wait([
-    service.getTotalProducts(sellerId),
-    service.getPendingOrders(sellerId),
-    service.getCompletedOrders(sellerId),
-    service.getEarnings(sellerId),
-  ]),
+
+
+
+StreamBuilder(
+  stream: Stream.periodic(
+    const Duration(milliseconds: 500),
+  ).asyncMap((_) async {
+    final totalProducts =
+        await service.getTotalProducts(sellerId);
+
+    final pendingOrders =
+        await service.getPendingOrders(sellerId);
+
+    final completedOrders =
+        await service.getCompletedOrders(sellerId);
+
+    final earnings =
+        await service.getEarnings(sellerId);
+
+    return [
+      totalProducts,
+      pendingOrders,
+      completedOrders,
+      earnings,
+    ];
+  }),
+
   builder: (context, snapshot) {
-    if (snapshot.connectionState == ConnectionState.waiting) {
-      return const Center(child: CircularProgressIndicator());
+
+    if (snapshot.connectionState ==
+        ConnectionState.waiting) {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
     }
 
     if (!snapshot.hasData) {
-      return const Center(child: Text("No data found"));
+      return const Center(
+        child: Text("No data found"),
+      );
     }
 
-    final data = snapshot.data as List;
+    final data = snapshot.data!;
 
     return GridView(
       shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      physics:
+          const NeverScrollableScrollPhysics(),
+
+      gridDelegate:
+          const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 1.3,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
+
       children: [
+
         _buildStatCard(
           "Total Products",
           "${data[0]}",
           Icons.inventory,
           Colors.blue,
         ),
+
         _buildStatCard(
           "Pending Orders",
           "${data[1]}",
           Icons.pending_actions,
           Colors.orange,
         ),
+
         _buildStatCard(
           "Completed Orders",
           "${data[2]}",
           Icons.check_circle,
           Colors.green,
         ),
+
         _buildStatCard(
           "Earnings",
           "₹${data[3]}",
@@ -241,82 +158,6 @@ FutureBuilder(
 const SizedBox(height: 25),
 
 
-//               const Text(
-//                 "📊 Stats Overview",
-//                 style: TextStyle(
-//                   fontSize: 18,
-//                   fontWeight: FontWeight.bold,
-//                 ),
-//               ),
-
-//               const SizedBox(height: 12),
-
-//               GridView(
-//                 shrinkWrap: true,
-//                 physics: const NeverScrollableScrollPhysics(),
-//                 gridDelegate:
-//                     const SliverGridDelegateWithFixedCrossAxisCount(
-//                   crossAxisCount: 2,
-//                   childAspectRatio: 1.3,
-//                   crossAxisSpacing: 10,
-//                   mainAxisSpacing: 10,
-//                 ),
-//                 children: [
-//                   // _buildStatCard(
-//                   //   "Total Products",
-//                   //   "$totalProducts",
-//                   //   Icons.inventory,
-//                   //   Colors.blue,
-//                   // ),
-//                   // _buildStatCard(
-//                   //   "Pending Orders",
-//                   //   "$pendingOrders",
-//                   //   Icons.pending_actions,
-//                   //   Colors.orange,
-//                   // ),
-//                   // _buildStatCard(
-//                   //   "Completed Orders",
-//                   //   "$completedOrders",
-//                   //   Icons.check_circle,
-//                   //   Colors.green,
-//                   // ),
-//                   // _buildStatCard(
-//                   //   "Earnings",
-//                   //   "₹$earnings",
-//                   //   Icons.currency_rupee,
-//                   //   Colors.purple,
-//                   // ),
-//                   _buildStatCard(
-//   "Total Products",
-//   "${data[0]}",
-//   Icons.inventory,
-//   Colors.blue,
-// ),
-
-// _buildStatCard(
-//   "Pending Orders",
-//   "${data[1]}",
-//   Icons.pending_actions,
-//   Colors.orange,
-// ),
-
-// _buildStatCard(
-//   "Completed Orders",
-//   "${data[2]}",
-//   Icons.check_circle,
-//   Colors.green,
-// ),
-
-// _buildStatCard(
-//   "Earnings",
-//   "₹${data[3]}",
-//   Icons.currency_rupee,
-//   Colors.purple,
-// ),
-//                 ],
-//               ),
-
-//               const SizedBox(height: 25),
 
               // =====================
               // QUICK ACTIONS
@@ -350,8 +191,18 @@ const SizedBox(height: 25),
   );
 }),
 
-_buildActionCard("My\nProducts", Icons.inventory_2, () {}),
-
+_buildActionCard(
+  "My\nProducts",
+  Icons.inventory_2,
+  () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) =>  MyProductsScreen(),
+      ),
+    );
+  },
+),
 _buildActionCard("Orders", Icons.list_alt, () {
   Navigator.push(
     context,
@@ -388,16 +239,48 @@ _buildActionCard("Settings", Icons.settings, () {}),
               const SizedBox(height: 12),
 
               SizedBox(
-                height: 150,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    _buildProductCard("Shoes", "₹999"),
-                    _buildProductCard("Watch", "₹1499"),
-                    _buildProductCard("Bag", "₹799"),
-                  ],
-                ),
-              ),
+  height: 170,
+  child: StreamBuilder<QuerySnapshot>(
+    stream: service.streamRecentProducts(sellerId),
+
+    builder: (context, snapshot) {
+
+      if (snapshot.connectionState ==
+          ConnectionState.waiting) {
+        return const Center(
+          child: CircularProgressIndicator(),
+        );
+      }
+
+      if (!snapshot.hasData ||
+          snapshot.data!.docs.isEmpty) {
+        return const Center(
+          child: Text("No products yet"),
+        );
+      }
+
+      final products = snapshot.data!.docs;
+
+      return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: products.length,
+
+        itemBuilder: (context, index) {
+
+          final product =
+              products[index];
+
+          return _buildProductCard(
+            product['name'],
+            "₹${product['price']}",
+            product['imageUrl'],
+          );
+        },
+      );
+    },
+  ),
+),
+              
             ],
           ),
         ),
@@ -485,52 +368,82 @@ _buildActionCard("Settings", Icons.settings, () {}),
     ),
   );
 }
-  // Widget _buildActionCard(String title, IconData icon) {
-  //   return Container(
-  //     decoration: BoxDecoration(
-  //       color: Colors.grey.shade100,
-  //       borderRadius: BorderRadius.circular(12),
-  //     ),
-  //     child: Column(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         Icon(icon, size: 28),
-  //         const SizedBox(height: 8),
-  //         Text(
-  //           title,
-  //           textAlign: TextAlign.center,
-  //           style: const TextStyle(fontSize: 12),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
+  
+Widget _buildProductCard(
+  String name,
+  String price,
+  String imageUrl,
+) {
+  return Container(
+    width: 140,
+    margin: const EdgeInsets.only(right: 10),
 
-  // =====================
-  // PRODUCT CARD
-  // =====================
-  Widget _buildProductCard(String name, String price) {
-    return Container(
-      width: 120,
-      margin: const EdgeInsets.only(right: 10),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(12),
+      border: Border.all(
+        color: Colors.grey.shade300,
       ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(Icons.image, size: 40),
-          const SizedBox(height: 10),
-          Text(name),
-          Text(
-            price,
-            style: const TextStyle(fontWeight: FontWeight.bold),
+    ),
+
+    child: Column(
+      crossAxisAlignment:
+          CrossAxisAlignment.start,
+
+      children: [
+
+        // PRODUCT IMAGE
+        ClipRRect(
+          borderRadius:
+              const BorderRadius.vertical(
+            top: Radius.circular(12),
           ),
-        ],
-      ),
-    );
-  }
+
+          child: Image.network(
+            imageUrl,
+            height: 90,
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
+        ),
+
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+
+          child: Column(
+            crossAxisAlignment:
+                CrossAxisAlignment.start,
+
+            children: [
+
+              Text(
+                name,
+                maxLines: 1,
+                overflow:
+                    TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight:
+                      FontWeight.bold,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              Text(
+                price,
+                style: const TextStyle(
+                  color: Colors.green,
+                  fontWeight:
+                      FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+
 }

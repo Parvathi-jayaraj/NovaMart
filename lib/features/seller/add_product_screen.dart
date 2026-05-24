@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import '../../../services/cloudinary_service.dart';
 import '../../../models/product_model.dart';
 import '../../../services/product_service.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 class AddProductScreen extends StatefulWidget {
   const AddProductScreen({super.key});
 
@@ -81,6 +81,13 @@ if (currentUser == null) {
   return;
 }
 
+final sellerDoc = await FirebaseFirestore.instance
+    .collection('users')
+    .doc(currentUser.uid)
+    .get();
+
+final sellerName = sellerDoc['name'];
+
     final product = ProductModel(
       id: productId,
       name: nameController.text.trim(),
@@ -92,7 +99,8 @@ if (currentUser == null) {
      price: double.tryParse(priceController.text.trim()) ?? 0.0,
       imageUrl: imageUrl,
       sellerId: currentUser.uid,
-      sellerName: currentUser.email ?? "Seller",
+      //sellerName: currentUser.email ?? "Seller",
+       sellerName: sellerName,
        createdAt: DateTime.now(),
     );
 

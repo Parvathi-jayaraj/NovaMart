@@ -10,14 +10,16 @@ class ChatScreen extends StatefulWidget {
   final String buyerId;
   final String sellerId;
   final String productId;
-  final String otherUserName;
+  //final String otherUserName;
+  final String receiverName;
 
   const ChatScreen({
     super.key,
     required this.buyerId,
     required this.sellerId,
     required this.productId,
-    required this.otherUserName,
+    //required this.otherUserName,
+    required this.receiverName,
   });
 
   @override
@@ -36,7 +38,8 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.otherUserName),
+    
+        title: Text(widget.receiverName),
       ),
 
       body: Column(
