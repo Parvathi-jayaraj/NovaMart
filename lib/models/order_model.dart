@@ -12,6 +12,10 @@ class OrderModel {
   final double totalAmount;
   final String status;
   final DateTime createdAt;
+  final String paymentMethod;
+final String customerName;
+final String phoneNumber;
+final String address;
 
   OrderModel({
     required this.orderId,
@@ -25,6 +29,10 @@ class OrderModel {
     required this.totalAmount,
     required this.status,
     required this.createdAt,
+    required this.paymentMethod,
+  required this.customerName,
+  required this.phoneNumber,
+  required this.address,
   });
 
   Map<String, dynamic> toMap() {
@@ -39,6 +47,10 @@ class OrderModel {
       'totalAmount': totalAmount,
       'status': status,
       'createdAt': createdAt,
+      'paymentMethod': paymentMethod,
+      'customerName': customerName,
+      'phoneNumber': phoneNumber,
+      'address': address,
     };
   }
 
@@ -55,6 +67,10 @@ class OrderModel {
       totalAmount: (map['totalAmount'] ?? 0).toDouble(),
       status: map['status'] ?? 'pending',
       createdAt: (map['createdAt'] as Timestamp).toDate(),
+      paymentMethod: map['paymentMethod'] ?? '',
+      customerName: map['customerName'] ?? '',
+      phoneNumber: map['phoneNumber'] ?? '',
+      address: map['address'] ?? '',
     );
   }
 }

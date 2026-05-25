@@ -780,6 +780,19 @@ stream: FirebaseFirestore.instance
                     final buyerId =
                         data['buyerId'] ??
                             'Unknown';
+                    
+                    final paymentMethod =
+    data['paymentMethod'] ?? 'N/A';
+
+final customerName =
+    data['customerName'] ?? 'N/A';
+
+final phoneNumber =
+    data['phoneNumber'] ?? 'N/A';
+
+final address =
+    data['address'] ?? 'N/A';
+
 
                     final Color statusColor =
                         OrderStatusUtils
@@ -852,52 +865,128 @@ stream: FirebaseFirestore.instance
                                     crossAxisAlignment:
                                         CrossAxisAlignment
                                             .start,
+                                        children: [
 
-                                    children: [
+  /// 📦 PRODUCT NAME
+  Text(
+    name,
+    style: const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
 
-                                      Text(
-                                        name,
+  const SizedBox(height: 5),
 
-                                        style:
-                                            const TextStyle(
-                                          fontSize:
-                                              16,
+  /// 💰 PRICE
+  Text(
+    "₹$price",
+    style: const TextStyle(
+      color: Colors.grey,
+    ),
+  ),
 
-                                          fontWeight:
-                                              FontWeight
-                                                  .bold,
-                                        ),
-                                      ),
+  const SizedBox(height: 6),
 
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
+  /// 🔢 QUANTITY
+  Text(
+    "Qty: $quantity",
+    style: const TextStyle(
+      fontSize: 13,
+    ),
+  ),
 
-                                      Text(
-                                        "₹$price",
+  const SizedBox(height: 10),
 
-                                        style:
-                                            const TextStyle(
-                                          color:
-                                              Colors
-                                                  .grey,
-                                        ),
-                                      ),
+  /// 💳 PAYMENT METHOD
+  Row(
+    children: [
+      const Icon(Icons.payment, size: 16),
 
-                                      const SizedBox(
-                                        height: 6,
-                                      ),
+      const SizedBox(width: 5),
 
-                                      Text(
-                                        "Qty: $quantity",
+      Expanded(
+        child: Text(
+          paymentMethod,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    ],
+  ),
 
-                                        style:
-                                            const TextStyle(
-                                          fontSize:
-                                              13,
-                                        ),
-                                      ),
-                                    ],
+  const SizedBox(height: 6),
+
+  /// 👤 CUSTOMER NAME
+  Text(
+    "Customer: $customerName",
+    style: const TextStyle(
+      fontWeight: FontWeight.w600,
+    ),
+  ),
+
+  const SizedBox(height: 4),
+
+  /// 📞 PHONE NUMBER
+  Text(
+    "Phone: $phoneNumber",
+  ),
+
+  const SizedBox(height: 4),
+
+  /// 📍 ADDRESS
+  Text(
+    "Address: $address",
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+  ),
+],
+                                    // children: [
+
+                                    //   Text(
+                                    //     name,
+
+                                    //     style:
+                                    //         const TextStyle(
+                                    //       fontSize:
+                                    //           16,
+
+                                    //       fontWeight:
+                                    //           FontWeight
+                                    //               .bold,
+                                    //     ),
+                                    //   ),
+
+                                    //   const SizedBox(
+                                    //     height: 5,
+                                    //   ),
+
+                                    //   Text(
+                                    //     "₹$price",
+
+                                    //     style:
+                                    //         const TextStyle(
+                                    //       color:
+                                    //           Colors
+                                    //               .grey,
+                                    //     ),
+                                    //   ),
+
+                                    //   const SizedBox(
+                                    //     height: 6,
+                                    //   ),
+
+                                    //   Text(
+                                    //     "Qty: $quantity",
+
+                                    //     style:
+                                    //         const TextStyle(
+                                    //       fontSize:
+                                    //           13,
+                                    //     ),
+                                    //   ),
+                                    // ],
                                   ),
                                 ),
 

@@ -1,4 +1,4 @@
-
+import 'package:novamart/features/orders/screens/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import '../../../services/order_service.dart';
 import '../../models/product_model.dart';
@@ -146,31 +146,46 @@ class ProductDetailScreen extends StatelessWidget {
                       // BUY NOW Button (UNCHANGED)
                       Expanded(
                         child: ElevatedButton(
-                          onPressed: () async {
-                            try {
+//                           onPressed: () async {
+//                             try {
                               
-                              await OrderService().placeOrder(
-  sellerId: product.sellerId,
-  productId: product.id,
-  productName: product.name,
-  productImage: product.imageUrl,
-  price: product.price,
-  quantity: 1, // ✅ REQUIRED FIX
-);
+//                               await OrderService().placeOrder(
+//   sellerId: product.sellerId,
+//   productId: product.id,
+//   productName: product.name,
+//   productImage: product.imageUrl,
+//   price: product.price,
+//   quantity: 1, // ✅ REQUIRED FIX
+// );
 
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                  content: Text("Order placed successfully"),
-                                ),
-                              );
-                            } catch (e) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(e.toString()),
-                                ),
-                              );
-                            }
-                          },
+//                               ScaffoldMessenger.of(context).showSnackBar(
+//                                 const SnackBar(
+//                                   content: Text("Order placed successfully"),
+//                                 ),
+//                               );
+//                             } catch (e) {
+//                               ScaffoldMessenger.of(context).showSnackBar(
+//                                 SnackBar(
+//                                   content: Text(e.toString()),
+//                                 ),
+//                               );
+//                             }
+//                           },
+onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => CheckoutScreen(
+        productName: product.name,
+        productImage: product.imageUrl,
+        quantity: 1,
+        totalAmount: product.price.toDouble(),
+        sellerId: product.sellerId,
+productId: product.id,
+      ),
+    ),
+  );
+},
                           child: const Text("Buy Now"),
                         ),
                       ),

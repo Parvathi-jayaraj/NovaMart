@@ -221,6 +221,18 @@ Widget buildTrackingTimeline(
               final quantity =
                   data['quantity'] ?? 1;
 
+              final paymentMethod =
+    data['paymentMethod'] ?? 'N/A';
+
+final customerName =
+    data['customerName'] ?? 'N/A';
+
+final phoneNumber =
+    data['phoneNumber'] ?? 'N/A';
+
+final address =
+    data['address'] ?? 'N/A';
+
               final Color statusColor =
                   OrderStatusUtils.getColor(
                 status,
@@ -283,46 +295,123 @@ Widget buildTrackingTimeline(
                                   CrossAxisAlignment
                                       .start,
 
+                              // children: [
+
+                              //   Text(
+                              //     name,
+
+                              //     style:
+                              //         const TextStyle(
+                              //       fontSize: 16,
+                              //       fontWeight:
+                              //           FontWeight
+                              //               .bold,
+                              //     ),
+                              //   ),
+
+                              //   const SizedBox(
+                              //     height: 5,
+                              //   ),
+
+                              //   Text(
+                              //     "₹$price",
+
+                              //     style:
+                              //         const TextStyle(
+                              //       color: Colors.grey,
+                              //     ),
+                              //   ),
+
+                              //   const SizedBox(
+                              //     height: 6,
+                              //   ),
+
+                              //   Text(
+                              //     "Qty: $quantity",
+
+                              //     style:
+                              //         const TextStyle(
+                              //       fontSize: 13,
+                              //     ),
+                              //   ),
+                              // ],
                               children: [
 
-                                Text(
-                                  name,
+  /// 📦 PRODUCT NAME
+  Text(
+    name,
+    style: const TextStyle(
+      fontSize: 16,
+      fontWeight: FontWeight.bold,
+    ),
+  ),
 
-                                  style:
-                                      const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight:
-                                        FontWeight
-                                            .bold,
-                                  ),
-                                ),
+  const SizedBox(height: 5),
 
-                                const SizedBox(
-                                  height: 5,
-                                ),
+  /// 💰 PRICE
+  Text(
+    "₹$price",
+    style: const TextStyle(
+      color: Colors.grey,
+    ),
+  ),
 
-                                Text(
-                                  "₹$price",
+  const SizedBox(height: 6),
 
-                                  style:
-                                      const TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
+  /// 🔢 QUANTITY
+  Text(
+    "Qty: $quantity",
+    style: const TextStyle(
+      fontSize: 13,
+    ),
+  ),
 
-                                const SizedBox(
-                                  height: 6,
-                                ),
+  const SizedBox(height: 10),
 
-                                Text(
-                                  "Qty: $quantity",
+  /// 💳 PAYMENT METHOD
+  Row(
+    children: [
+      const Icon(Icons.payment, size: 16),
 
-                                  style:
-                                      const TextStyle(
-                                    fontSize: 13,
-                                  ),
-                                ),
-                              ],
+      const SizedBox(width: 5),
+
+      Expanded(
+        child: Text(
+          paymentMethod,
+          style: const TextStyle(
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    ],
+  ),
+
+  const SizedBox(height: 6),
+
+  /// 👤 CUSTOMER NAME
+  Text(
+    "Customer: $customerName",
+    style: const TextStyle(
+      fontWeight: FontWeight.w500,
+    ),
+  ),
+
+  const SizedBox(height: 4),
+
+  /// 📞 PHONE
+  Text(
+    "Phone: $phoneNumber",
+  ),
+
+  const SizedBox(height: 4),
+
+  /// 📍 ADDRESS
+  Text(
+    "Address: $address",
+    maxLines: 2,
+    overflow: TextOverflow.ellipsis,
+  ),
+],
                             ),
                           ),
 
