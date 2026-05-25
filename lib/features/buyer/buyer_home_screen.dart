@@ -1,20 +1,275 @@
 
 
+// import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:flutter/material.dart';
+// import '../cart/cart_screen.dart';
+// import '../orders/screens/buyer_orders_screen.dart';
+// import '../../models/product_model.dart';
+// import '../../services/auth_service.dart';
+// import '../products/product_detail_screen.dart';
+// import '../chat/chat_list_screen.dart';
+// import 'buyer_profile_screen.dart';
+
+// class BuyerHomeScreen extends StatelessWidget {
+//   const BuyerHomeScreen({super.key});
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('NovaMart'),
+//         backgroundColor: Colors.blue,
+//         foregroundColor: Colors.white,
+
+//         actions: [
+
+// //cart icon
+//  IconButton(
+//     icon: const Icon(Icons.shopping_cart),
+//     onPressed: () {
+//       Navigator.push(
+//         context,
+//         MaterialPageRoute(
+//           builder: (_) => CartScreen(),
+//         ),
+//       );
+//     },
+//   ),
+
+
+//           // Orders icon
+//           IconButton(
+//             onPressed: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (_) => const BuyerOrdersScreen(),
+//                 ),
+//               );
+//             },
+//             icon: const Icon(Icons.shopping_bag),
+//           ),
+
+
+//           // Profile icon
+//           IconButton(
+//             icon: const Icon(Icons.person),
+//             onPressed: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) =>
+//                       const BuyerProfileScreen(),
+//                 ),
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+
+//       // ✅ FLOATING CHAT BUTTON (PROFESSIONAL UX)
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           Navigator.push(
+//             context,
+//             MaterialPageRoute(
+//               builder: (_) =>  ChatListScreen(),
+//             ),
+//           );
+//         },
+//         backgroundColor: Colors.blue,
+//         child: const Icon(Icons.chat),
+//       ),
+
+//       body: StreamBuilder<QuerySnapshot>(
+//         stream: FirebaseFirestore.instance
+//             .collection('products')
+//             .orderBy('createdAt', descending: true)
+//             .snapshots(),
+
+//         builder: (context, snapshot) {
+//           if (snapshot.connectionState ==
+//               ConnectionState.waiting) {
+//             return const Center(
+//               child: CircularProgressIndicator(),
+//             );
+//           }
+
+//           if (!snapshot.hasData ||
+//               snapshot.data!.docs.isEmpty) {
+//             return const Center(
+//               child: Text(
+//                 "No Products Found",
+//                 style: TextStyle(
+//                   fontSize: 18,
+//                   fontWeight: FontWeight.w500,
+//                 ),
+//               ),
+//             );
+//           }
+
+//           final products = snapshot.data!.docs;
+
+//           return GridView.builder(
+//             padding: const EdgeInsets.all(12),
+//             itemCount: products.length,
+
+//             gridDelegate:
+//                 const SliverGridDelegateWithFixedCrossAxisCount(
+//               crossAxisCount: 2,
+//               crossAxisSpacing: 12,
+//               mainAxisSpacing: 12,
+//               childAspectRatio: 0.72,
+//             ),
+
+//             itemBuilder: (context, index) {
+//               final productData =
+//                   products[index].data()
+//                       as Map<String, dynamic>;
+
+//               final product =
+//                   ProductModel.fromMap(productData);
+
+//               return GestureDetector(
+//                 onTap: () {
+//                   Navigator.push(
+//                     context,
+//                     MaterialPageRoute(
+//                       builder: (_) => ProductDetailScreen(
+//                         product: product,
+//                       ),
+//                     ),
+//                   );
+//                 },
+
+//                 child: Container(
+//                   decoration: BoxDecoration(
+//                     color: Colors.white,
+//                     borderRadius:
+//                         BorderRadius.circular(16),
+//                     boxShadow: [
+//                       BoxShadow(
+//                         blurRadius: 4,
+//                         color: Colors.black
+//                             .withOpacity(0.1),
+//                       ),
+//                     ],
+//                   ),
+
+//                   child: Column(
+//                     crossAxisAlignment:
+//                         CrossAxisAlignment.start,
+//                     children: [
+
+//                       // Product Image
+//                       Expanded(
+//                         child: ClipRRect(
+//                           borderRadius:
+//                               const BorderRadius.vertical(
+//                             top: Radius.circular(16),
+//                           ),
+//                           child: Image.network(
+//                             product.imageUrl,
+//                             width: double.infinity,
+//                             fit: BoxFit.cover,
+//                             errorBuilder:
+//                                 (context, error, stackTrace) {
+//                               return const Center(
+//                                 child: Icon(
+//                                   Icons.image,
+//                                   size: 50,
+//                                 ),
+//                               );
+//                             },
+//                           ),
+//                         ),
+//                       ),
+
+//                       Padding(
+//                         padding:
+//                             const EdgeInsets.all(10),
+//                         child: Column(
+//                           crossAxisAlignment:
+//                               CrossAxisAlignment.start,
+//                           children: [
+
+//                             Text(
+//                               product.name,
+//                               maxLines: 1,
+//                               overflow:
+//                                   TextOverflow.ellipsis,
+//                               style: const TextStyle(
+//                                 fontSize: 16,
+//                                 fontWeight:
+//                                     FontWeight.bold,
+//                               ),
+//                             ),
+
+//                             const SizedBox(height: 6),
+
+//                             Text(
+//                               "₹${product.price}",
+//                               style: const TextStyle(
+//                                 fontSize: 15,
+//                                 color: Colors.green,
+//                                 fontWeight:
+//                                     FontWeight.w600,
+//                               ),
+//                             ),
+
+//                             const SizedBox(height: 6),
+
+//                             Text(
+//                               product.sellerName,
+//                               style: TextStyle(
+//                                 fontSize: 13,
+//                                 color:
+//                                     Colors.grey.shade600,
+//                               ),
+//                             ),
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               );
+//             },
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import '../cart/cart_screen.dart';
 import '../orders/screens/buyer_orders_screen.dart';
 import '../../models/product_model.dart';
-import '../../services/auth_service.dart';
 import '../products/product_detail_screen.dart';
 import '../chat/chat_list_screen.dart';
 import 'buyer_profile_screen.dart';
 
-class BuyerHomeScreen extends StatelessWidget {
+class BuyerHomeScreen extends StatefulWidget {
   const BuyerHomeScreen({super.key});
 
   @override
+  State<BuyerHomeScreen> createState() =>
+      _BuyerHomeScreenState();
+}
+
+class _BuyerHomeScreenState
+    extends State<BuyerHomeScreen> {
+
+  // ================= SEARCH =================
+  final TextEditingController searchController =
+      TextEditingController();
+
+  String searchQuery = '';
+
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('NovaMart'),
@@ -23,37 +278,41 @@ class BuyerHomeScreen extends StatelessWidget {
 
         actions: [
 
-//cart icon
- IconButton(
-    icon: const Icon(Icons.shopping_cart),
-    onPressed: () {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (_) => CartScreen(),
-        ),
-      );
-    },
-  ),
+          // ================= CART =================
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
 
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => CartScreen(),
+                ),
+              );
+            },
+          ),
 
-          // Orders icon
+          // ================= ORDERS =================
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (_) => const BuyerOrdersScreen(),
+                  builder: (_) =>
+                      const BuyerOrdersScreen(),
                 ),
               );
             },
-            icon: const Icon(Icons.shopping_bag),
+
+            icon: const Icon(
+              Icons.shopping_bag,
+            ),
           ),
 
-
-          // Profile icon
+          // ================= PROFILE =================
           IconButton(
             icon: const Icon(Icons.person),
+
             onPressed: () {
               Navigator.push(
                 context,
@@ -67,176 +326,389 @@ class BuyerHomeScreen extends StatelessWidget {
         ],
       ),
 
-      // ✅ FLOATING CHAT BUTTON (PROFESSIONAL UX)
-      floatingActionButton: FloatingActionButton(
+      // ================= CHAT BUTTON =================
+      floatingActionButton:
+          FloatingActionButton(
         onPressed: () {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) =>  ChatListScreen(),
+              builder: (_) => ChatListScreen(),
             ),
           );
         },
+
         backgroundColor: Colors.blue,
+
         child: const Icon(Icons.chat),
       ),
 
-      body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance
-            .collection('products')
-            .orderBy('createdAt', descending: true)
-            .snapshots(),
+      body: Column(
+        children: [
 
-        builder: (context, snapshot) {
-          if (snapshot.connectionState ==
-              ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+          // ================= SEARCH BAR =================
+          Padding(
+            padding:
+                const EdgeInsets.all(12),
 
-          if (!snapshot.hasData ||
-              snapshot.data!.docs.isEmpty) {
-            return const Center(
-              child: Text(
-                "No Products Found",
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
+            child: TextField(
+              controller: searchController,
+
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 16,
+              ),
+
+              cursorColor: Colors.black,
+
+              decoration: InputDecoration(
+                hintText:
+                    "Search products...",
+
+                hintStyle:
+                    const TextStyle(
+                  color: Colors.grey,
+                ),
+
+                prefixIcon: const Icon(
+                  Icons.search,
+                  color: Colors.grey,
+                ),
+
+                filled: true,
+                fillColor: Colors.white,
+
+                border:
+                    OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(
+                    14,
+                  ),
+
+                  borderSide:
+                      BorderSide.none,
+                ),
+
+                contentPadding:
+                    const EdgeInsets.symmetric(
+                  vertical: 0,
+                  horizontal: 10,
                 ),
               ),
-            );
-          }
 
-          final products = snapshot.data!.docs;
+              onChanged: (value) {
 
-          return GridView.builder(
-            padding: const EdgeInsets.all(12),
-            itemCount: products.length,
+                searchQuery =
+                    value.toLowerCase();
 
-            gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-              childAspectRatio: 0.72,
+                setState(() {});
+              },
             ),
+          ),
 
-            itemBuilder: (context, index) {
-              final productData =
-                  products[index].data()
-                      as Map<String, dynamic>;
+          // ================= PRODUCT LIST =================
+          Expanded(
+            child:
+                StreamBuilder<QuerySnapshot>(
+              stream: FirebaseFirestore
+                  .instance
+                  .collection('products')
+                  .orderBy(
+                    'createdAt',
+                    descending: true,
+                  )
+                  .snapshots(),
 
-              final product =
-                  ProductModel.fromMap(productData);
+              builder:
+                  (context, snapshot) {
 
-              return GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ProductDetailScreen(
-                        product: product,
+                // ================= LOADING =================
+                if (snapshot
+                        .connectionState ==
+                    ConnectionState
+                        .waiting) {
+
+                  return const Center(
+                    child:
+                        CircularProgressIndicator(),
+                  );
+                }
+
+                // ================= EMPTY =================
+                if (!snapshot.hasData ||
+                    snapshot
+                        .data!.docs.isEmpty) {
+
+                  return const Center(
+                    child: Text(
+                      "No Products Found",
+
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight:
+                            FontWeight.w500,
                       ),
                     ),
                   );
-                },
+                }
 
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4,
-                        color: Colors.black
-                            .withOpacity(0.1),
+                // ================= ALL PRODUCTS =================
+                final allProducts =
+                    snapshot.data!.docs;
+
+                // ================= FILTERED PRODUCTS =================
+                final filteredProducts =
+                    allProducts.where((doc) {
+
+                  final data =
+                      doc.data()
+                          as Map<String,
+                              dynamic>;
+
+                  final productName =
+                      (data['name'] ?? '')
+                          .toString()
+                          .toLowerCase();
+
+                  return productName
+                      .contains(
+                    searchQuery,
+                  );
+
+                }).toList();
+
+                // ================= NO SEARCH RESULTS =================
+                if (filteredProducts
+                    .isEmpty) {
+
+                  return const Center(
+                    child: Text(
+                      "No matching products found",
+
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight:
+                            FontWeight.w500,
                       ),
-                    ],
+                    ),
+                  );
+                }
+
+                return GridView.builder(
+                  padding:
+                      const EdgeInsets.all(
+                    12,
                   ),
 
-                  child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                    children: [
+                  itemCount:
+                      filteredProducts.length,
 
-                      // Product Image
-                      Expanded(
-                        child: ClipRRect(
+                  gridDelegate:
+                      const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+
+                    crossAxisSpacing:
+                        12,
+
+                    mainAxisSpacing:
+                        12,
+
+                    childAspectRatio:
+                        0.72,
+                  ),
+
+                  itemBuilder:
+                      (context, index) {
+
+                    final productData =
+                        filteredProducts[index]
+                                .data()
+                            as Map<String,
+                                dynamic>;
+
+                    final product =
+                        ProductModel
+                            .fromMap(
+                      productData,
+                    );
+
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                ProductDetailScreen(
+                              product:
+                                  product,
+                            ),
+                          ),
+                        );
+                      },
+
+                      child: Container(
+                        decoration:
+                            BoxDecoration(
+                          color: Colors.white,
+
                           borderRadius:
-                              const BorderRadius.vertical(
-                            top: Radius.circular(16),
+                              BorderRadius
+                                  .circular(
+                            16,
                           ),
-                          child: Image.network(
-                            product.imageUrl,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            errorBuilder:
-                                (context, error, stackTrace) {
-                              return const Center(
-                                child: Icon(
-                                  Icons.image,
-                                  size: 50,
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
 
-                      Padding(
-                        padding:
-                            const EdgeInsets.all(10),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4,
+
+                              color: Colors
+                                  .black
+                                  .withOpacity(
+                                0.1,
+                              ),
+                            ),
+                          ],
+                        ),
+
                         child: Column(
                           crossAxisAlignment:
-                              CrossAxisAlignment.start,
+                              CrossAxisAlignment
+                                  .start,
+
                           children: [
 
-                            Text(
-                              product.name,
-                              maxLines: 1,
-                              overflow:
-                                  TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                fontWeight:
-                                    FontWeight.bold,
+                            // ================= IMAGE =================
+                            Expanded(
+                              child: ClipRRect(
+                                borderRadius:
+                                    const BorderRadius.vertical(
+                                  top:
+                                      Radius.circular(
+                                    16,
+                                  ),
+                                ),
+
+                                child:
+                                    Image.network(
+                                  product.imageUrl,
+
+                                  width:
+                                      double
+                                          .infinity,
+
+                                  fit: BoxFit
+                                      .cover,
+
+                                  errorBuilder:
+                                      (
+                                    context,
+                                    error,
+                                    stackTrace,
+                                  ) {
+
+                                    return const Center(
+                                      child:
+                                          Icon(
+                                        Icons
+                                            .image,
+
+                                        size:
+                                            50,
+                                      ),
+                                    );
+                                  },
+                                ),
                               ),
                             ),
 
-                            const SizedBox(height: 6),
-
-                            Text(
-                              "₹${product.price}",
-                              style: const TextStyle(
-                                fontSize: 15,
-                                color: Colors.green,
-                                fontWeight:
-                                    FontWeight.w600,
+                            // ================= DETAILS =================
+                            Padding(
+                              padding:
+                                  const EdgeInsets.all(
+                                10,
                               ),
-                            ),
 
-                            const SizedBox(height: 6),
+                              child: Column(
+                                crossAxisAlignment:
+                                    CrossAxisAlignment
+                                        .start,
 
-                            Text(
-                              product.sellerName,
-                              style: TextStyle(
-                                fontSize: 13,
-                                color:
-                                    Colors.grey.shade600,
+                                children: [
+
+                                  Text(
+                                    product.name,
+
+                                    maxLines:
+                                        1,
+
+                                    overflow:
+                                        TextOverflow
+                                            .ellipsis,
+
+                                    style:
+                                        const TextStyle(
+                                      fontSize:
+                                          16,
+
+                                      fontWeight:
+                                          FontWeight
+                                              .bold,
+                                    ),
+                                  ),
+
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+
+                                  Text(
+                                    "₹${product.price}",
+
+                                    style:
+                                        const TextStyle(
+                                      fontSize:
+                                          15,
+
+                                      color:
+                                          Colors
+                                              .green,
+
+                                      fontWeight:
+                                          FontWeight
+                                              .w600,
+                                    ),
+                                  ),
+
+                                  const SizedBox(
+                                    height: 6,
+                                  ),
+
+                                  Text(
+                                    product
+                                        .sellerName,
+
+                                    style:
+                                        TextStyle(
+                                      fontSize:
+                                          13,
+
+                                      color: Colors
+                                          .grey
+                                          .shade600,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              );
-            },
-          );
-        },
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
