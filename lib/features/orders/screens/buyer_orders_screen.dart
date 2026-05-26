@@ -58,11 +58,7 @@ Widget buildTrackingStep({
             ),
           ),
 
-          // Container(
-          //   width: 3,
-          //   height: 35,
-          //   color: color,
-          // ),
+         
           // HIDE LINE AFTER LAST STEP
 title == "Order Delivered"
     ? const SizedBox()
@@ -295,46 +291,7 @@ final address =
                                   CrossAxisAlignment
                                       .start,
 
-                              // children: [
-
-                              //   Text(
-                              //     name,
-
-                              //     style:
-                              //         const TextStyle(
-                              //       fontSize: 16,
-                              //       fontWeight:
-                              //           FontWeight
-                              //               .bold,
-                              //     ),
-                              //   ),
-
-                              //   const SizedBox(
-                              //     height: 5,
-                              //   ),
-
-                              //   Text(
-                              //     "₹$price",
-
-                              //     style:
-                              //         const TextStyle(
-                              //       color: Colors.grey,
-                              //     ),
-                              //   ),
-
-                              //   const SizedBox(
-                              //     height: 6,
-                              //   ),
-
-                              //   Text(
-                              //     "Qty: $quantity",
-
-                              //     style:
-                              //         const TextStyle(
-                              //       fontSize: 13,
-                              //     ),
-                              //   ),
-                              // ],
+                              
                               children: [
 
   /// 📦 PRODUCT NAME

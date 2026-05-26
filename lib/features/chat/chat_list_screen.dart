@@ -57,13 +57,6 @@ final currentUserId =
               Map<String, dynamic> data =
                   chat.data() as Map<String, dynamic>;
 
-              // List participants =
-              //     data['participants'];
-
-              // String otherUserId =
-              //     participants.firstWhere(
-              //   (id) => id != currentUser!.uid,
-              // );
 
               return ListTile(
                 leading: const CircleAvatar(

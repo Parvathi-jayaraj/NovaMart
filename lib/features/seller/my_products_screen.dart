@@ -72,8 +72,7 @@ class MyProductsScreen extends StatelessWidget {
 
       builder: (_) => EditProductScreen(
 
-        // product: product.data()
-        //     as Map<String, dynamic>,
+    
 
         product: {
   ...(product.data()

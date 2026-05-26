@@ -62,20 +62,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
     try {
       // 2. CREATE ORDER
-      // await OrderService().placeOrder(
-      //   sellerId: "unknown", // we improve in cart/multi-item step
-      //   productId: "single_product",
-      //   productName: widget.productName ?? '',
-      //   productImage:widget.productImage ?? '',
-      //   price: widget.totalAmount ?? 0,
-      //   quantity: widget.quantity ?? 1,
-
-      //   // ✅ NEW FIELDS (must exist in OrderService)
-      //   paymentMethod: selectedPaymentMethod,
-      //   customerName: name,
-      //   phoneNumber: phone,
-      //   address: address,
-      // );
+      
       /// 🛒 CART CHECKOUT
 if (widget.cartItems != null &&
     widget.cartItems!.isNotEmpty) {
@@ -153,7 +140,7 @@ else {
           children: [
 
             /// 🧾 ORDER SUMMARY
-            /// /// 🧾 ORDER SUMMARY
+            
 const Text(
   "Order Summary",
   style: TextStyle(
@@ -313,71 +300,7 @@ else
       ),
     ),
   ),
-            // Card(
-            //   elevation: 3,
-            //   shape: RoundedRectangleBorder(
-            //     borderRadius: BorderRadius.circular(12),
-            //   ),
-            //   child: Padding(
-            //     padding: const EdgeInsets.all(12),
-            //     child: Row(
-            //       children: [
-
-            //         ClipRRect(
-            //           borderRadius: BorderRadius.circular(10),
-            //           child: Image.network(
-            //             widget.productImage,
-            //             height: 80,
-            //             width: 80,
-            //             fit: BoxFit.cover,
-            //           ),
-            //         ),
-
-            //         const SizedBox(width: 12),
-
-            //         Expanded(
-            //           child: Column(
-            //             crossAxisAlignment: CrossAxisAlignment.start,
-            //             children: [
-
-            //               Text(
-            //                 widget.productName,
-            //                 style: const TextStyle(
-            //                   fontSize: 16,
-            //                   fontWeight: FontWeight.bold,
-            //                 ),
-            //               ),
-
-            //               const SizedBox(height: 6),
-
-            //               Text(
-            //                 "Quantity: ${widget.quantity}",
-            //                 style: const TextStyle(color: Colors.grey),
-            //               ),
-
-            //               const SizedBox(height: 6),
-
-            //               Text(
-            //                 "Price per item: ₹${(widget.totalAmount / widget.quantity).toStringAsFixed(2)}",
-            //                 style: const TextStyle(color: Colors.grey),
-            //               ),
-            //             ],
-            //           ),
-            //         ),
-
-            //         Text(
-            //           "₹${widget.totalAmount}",
-            //           style: const TextStyle(
-            //             fontSize: 16,
-            //             fontWeight: FontWeight.bold,
-            //             color: Colors.green,
-            //           ),
-            //         ),
-            //       ],
-            //     ),
-            //   ),
-            // ),
-
+           
             const SizedBox(height: 20),
 
             /// 📍 ADDRESS SECTION

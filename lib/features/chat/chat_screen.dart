@@ -10,7 +10,6 @@ class ChatScreen extends StatefulWidget {
   final String buyerId;
   final String sellerId;
   final String productId;
-  //final String otherUserName;
   final String receiverName;
 
   const ChatScreen({
@@ -18,7 +17,6 @@ class ChatScreen extends StatefulWidget {
     required this.buyerId,
     required this.sellerId,
     required this.productId,
-    //required this.otherUserName,
     required this.receiverName,
   });
 

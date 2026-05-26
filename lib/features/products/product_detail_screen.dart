@@ -146,31 +146,7 @@ class ProductDetailScreen extends StatelessWidget {
                       // BUY NOW Button (UNCHANGED)
                       Expanded(
                         child: ElevatedButton(
-//                           onPressed: () async {
-//                             try {
-                              
-//                               await OrderService().placeOrder(
-//   sellerId: product.sellerId,
-//   productId: product.id,
-//   productName: product.name,
-//   productImage: product.imageUrl,
-//   price: product.price,
-//   quantity: 1, // ✅ REQUIRED FIX
-// );
 
-//                               ScaffoldMessenger.of(context).showSnackBar(
-//                                 const SnackBar(
-//                                   content: Text("Order placed successfully"),
-//                                 ),
-//                               );
-//                             } catch (e) {
-//                               ScaffoldMessenger.of(context).showSnackBar(
-//                                 SnackBar(
-//                                   content: Text(e.toString()),
-//                                 ),
-//                               );
-//                             }
-//                           },
 onPressed: () {
   Navigator.push(
     context,

@@ -430,25 +430,12 @@ stream: FirebaseFirestore.instance
       isEqualTo: user!.uid,
     )
     .snapshots(includeMetadataChanges: false),
-        // stream: FirebaseFirestore.instance
-        //     .collection('orders')
-        //     .where(
-        //       'sellerId',
-        //       isEqualTo: user!.uid,
-        //     )
-        //     .snapshots(),
+        
 
         builder: (context, snapshot) {
 
           // ================= LOADING =================
-          // if (snapshot.connectionState ==
-          //     ConnectionState.waiting) {
-
-          //   return const Center(
-          //     child:
-          //         CircularProgressIndicator(),
-          //   );
-          // }
+          
           if (!snapshot.hasData) {
 
   return const Center(
@@ -555,17 +542,7 @@ stream: FirebaseFirestore.instance
     }
   });
 },
-                  // onChanged: (value) {
-
-                  //   if (searchQuery !=
-                  //       value.toLowerCase()) {
-
-                  //     setState(() {
-                  //       searchQuery =
-                  //           value.toLowerCase();
-                  //     });
-                  //   }
-                  // },
+                  
                 ),
               ),
 
@@ -942,51 +919,7 @@ final address =
     overflow: TextOverflow.ellipsis,
   ),
 ],
-                                    // children: [
-
-                                    //   Text(
-                                    //     name,
-
-                                    //     style:
-                                    //         const TextStyle(
-                                    //       fontSize:
-                                    //           16,
-
-                                    //       fontWeight:
-                                    //           FontWeight
-                                    //               .bold,
-                                    //     ),
-                                    //   ),
-
-                                    //   const SizedBox(
-                                    //     height: 5,
-                                    //   ),
-
-                                    //   Text(
-                                    //     "₹$price",
-
-                                    //     style:
-                                    //         const TextStyle(
-                                    //       color:
-                                    //           Colors
-                                    //               .grey,
-                                    //     ),
-                                    //   ),
-
-                                    //   const SizedBox(
-                                    //     height: 6,
-                                    //   ),
-
-                                    //   Text(
-                                    //     "Qty: $quantity",
-
-                                    //     style:
-                                    //         const TextStyle(
-                                    //       fontSize:
-                                    //           13,
-                                    //     ),
-                                    //   ),
-                                    // ],
+                                    
                                   ),
                                 ),
 

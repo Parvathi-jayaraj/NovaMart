@@ -71,8 +71,7 @@ Future<void> uploadProduct() async {
     final productId =
         DateTime.now().millisecondsSinceEpoch.toString();
 
-   // final currentUser =
-      //  FirebaseAuth.instance.currentUser;
+  
 
 final currentUser = FirebaseAuth.instance.currentUser;
 
@@ -93,13 +92,9 @@ final sellerName = sellerDoc['name'];
       name: nameController.text.trim(),
       description:
           descriptionController.text.trim(),
-     // price: double.parse(
-       // priceController.text.trim(),
-     // ),
      price: double.tryParse(priceController.text.trim()) ?? 0.0,
       imageUrl: imageUrl,
       sellerId: currentUser.uid,
-      //sellerName: currentUser.email ?? "Seller",
        sellerName: sellerName,
        createdAt: DateTime.now(),
     );
